@@ -19,13 +19,15 @@
     <div>
         <h1>Weather App</h1>
 
-        <input type="number" id="zip">
+        <input type="text" id="zip" placeholder="Enter Zip Code">
         <button id="button">Get Weather!</button>
+        <p id="errorMsg"></p>
         <h1>City: <span id="city">None</span></h1>
         <h1>Temperature: <span id="temp">None</span></h1>
         <h1>Condition: <span id="condition">None</span></h1>
         <h1>Other info: <span id="other">None</span></h1>
     </div>
+
     <!-- JavaScript -->
     <script src="./node_modules/axios/dist/axios.min.js"></script>
     <script src="./js/main.js"></script>

@@ -13,10 +13,32 @@
     .errorMsg = '' - if information is not loaded or can't be loaded
 4. SUBMIT (API)
 
+    INIT()
+        SET element bindings
+        currentZip
+        previousZips = []
+        errorMsg?
+
+    FUNCTIONS
+        getWeather() - HTML output
+            Call API
+            Parse for city, temperature, conditions, other
+            OUTPUT to html
+        checkZip()  - boolean
+            check if zip exists in previousZips
+        noWeather() - HTML output
+            OUTPUT error msg
+    
     START
-        VALIDATION
-        CALL API                - imagine each API call costs 25 cents
-        PARSE API DATA
-        ON STATE CHANGE
-        UPDATE VIEW
+        GET zip input
+        VALIDATE zip input
+            IF valid
+                IF zip exists in previousZips
+                    OUTPUT zip object from previousZips (does data need to be updated to current time?)
+                ELSE
+                    CALL API function - imagine each API call costs 25 cents
+                    PARSE api data
+                    Store new object with API call data in previousZips
+            ELSE (not valid)
+                OUTPUT error msg
     END
