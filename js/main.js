@@ -1,14 +1,17 @@
 // const axios = require('axios');
 const zip = document.getElementById('zip');
 const submit = document.getElementById('submit');
+const errorMsgDiv = document.getElementById('errorMsgDiv');
+const weatherDataDiv = document.getElementById('weatherDataDiv');
 const city = document.getElementById('city');
-const temp = document.getElementById('temp');
+const icon = document.getElementById('icon');
 const condition = document.getElementById('condition');
-const other = document.getElementById('other');
+const tempF = document.getElementById('tempF');
+const tempC = document.getElementById('tempC');
+const tempK = document.getElementById('tempK');
+
 
 var previousZips = {};
-var url = "https://api.openweathermap.org/data/2.5/weather?zip=40508,us&appid=267b2d4d75d3015cabf24d3269591e19"
-var currentZip = '';
 
 submit.addEventListener('click', validateZip);
 
@@ -16,11 +19,11 @@ function validateZip() {
     if (!isNaN(zip.value) && zip.value.length == 5) {
         getWeather(zip.value);
     } else {
-        console.log("Invalid zip code.");
+        noWeather();
     }
 }
 
-function getWeather(zipCode) {
+function getWeather(zipCode) {    
     axios.get("https://api.openweathermap.org/data/2.5/weather", {
             params: {
                 zip: zipCode,
@@ -30,54 +33,46 @@ function getWeather(zipCode) {
         .then(function (response) {
             parseData(response.data);
             console.log(response);
-            // function (response) {
-            // city.innerHTML = response.data.name;
-            // temp.innerHTML = response.data.main.temp;
-            // condition.innerHTML = response.data.weather[0].description;
+            yesWeather();
         })
 
         .catch(function (error) {
             // handle error
             console.log(error);
+            noWeather();
         });
-        // .then(function () {
-        //     // always executed
-        // });
 }
 
 function parseData(weatherData) {
     city.innerHTML = weatherData.name;
-    temp.innerHTML = weatherData.main.temp;
-    condition.innerHTML = weatherData.weather[0].description;
+    icon.src = `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`;
+    icon.alt = weatherData.weather[0].description;
+    condition.innerHTML = weatherData.weather[0].main;
+    tempF.innerHTML = toDegreeF(weatherData.main.temp);
+    tempC.innerHTML = toDegreeC(weatherData.main.temp);
+    tempK.innerHTML = Math.round(weatherData.main.temp * 10) / 10;
+    
 }
 
 function noWeather() {
-    // Set the visibility to hidden and output "Invalid zip code" to html
+    console.log("Invalid ZIP Code.");
+    errorMsgDiv.style = "display: block;";
+    weatherDataDiv.style = "display: none;";
+}
+
+function yesWeather() {
+    console.log("Data retrieved.");
+    errorMsgDiv.style = "display: none;";
+    weatherDataDiv.style = "display: block;";
 }
 
 function toDegreeC(kelvinTemp) {
-    return kelvinTemp - 273.15;
+    return Math.round((kelvinTemp - 273.15) * 10) / 10;
 }
 
 function toDegreeF(kelvinTemp) {
-    return ((kelvinTemp - 273.15) * (9 / 5)) + 32;
+    return Math.round((((kelvinTemp - 273.15) * (9 / 5)) + 32) * 10) / 10;
 }
-
-// // Optionally the request above could also be done as
-// axios.get('/user', {
-//     params: {
-//       ID: 12345
-//     }
-//   })
-//   .then(function (response) {
-//     console.log(response);
-//   })
-//   .catch(function (error) {
-//     console.log(error);
-//   })
-//   .then(function () {
-//     // always executed
-//   });  
 
 // // Want to use async/await? Add the `async` keyword to your outer function/method.
 // async function getUser() {
