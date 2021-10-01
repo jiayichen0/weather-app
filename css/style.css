@@ -1,0 +1,32 @@
+html, body {
+  height: 100%;
+}
+
+.jumbotron.vertical-center {
+  margin-bottom: 0; /* Remove the default bottom margin of .jumbotron */
+}
+
+.vertical-center {
+  min-height: 100%;  /* Fallback for vh unit */
+  min-height: 100vh;
+}
+
+#title {
+    font-family: 'Montserrat', sans-serif;
+}
+
+#errorMsg {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.vertical-center {
+    min-height: 50%;
+}
+
+#box {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
