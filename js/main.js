@@ -1,6 +1,6 @@
 // const axios = require('axios');
 const zip = document.getElementById('zip');
-const button = document.getElementById('button');
+const submit = document.getElementById('submit');
 const city = document.getElementById('city');
 const temp = document.getElementById('temp');
 const condition = document.getElementById('condition');
@@ -10,7 +10,7 @@ var previousZips = {};
 var url = "https://api.openweathermap.org/data/2.5/weather?zip=40508,us&appid=267b2d4d75d3015cabf24d3269591e19"
 var currentZip = '';
 
-button.addEventListener('click', validateZip);
+submit.addEventListener('click', validateZip);
 
 function validateZip() {
     if (!isNaN(zip.value) && zip.value.length == 5) {
@@ -20,10 +20,10 @@ function validateZip() {
     }
 }
 
-function getWeather(aZipCode) {
+function getWeather(zipCode) {
     axios.get("https://api.openweathermap.org/data/2.5/weather", {
             params: {
-                zip: aZipCode,
+                zip: zipCode,
                 appid: "267b2d4d75d3015cabf24d3269591e19"
             }
         })
