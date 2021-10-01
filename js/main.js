@@ -67,11 +67,11 @@ function yesWeather() {
 }
 
 function toDegreeC(kelvinTemp) {
-    return Math.round((kelvinTemp - 273.15) * 10) / 10;
+    return Math.round(kelvinTemp - 273.15);
 }
 
 function toDegreeF(kelvinTemp) {
-    return Math.round((((kelvinTemp - 273.15) * (9 / 5)) + 32) * 10) / 10;
+    return Math.round(((kelvinTemp - 273.15) * (9 / 5)) + 32);
 }
 
 // // Want to use async/await? Add the `async` keyword to your outer function/method.
